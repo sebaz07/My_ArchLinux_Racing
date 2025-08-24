@@ -1,0 +1,164 @@
+* {
+    font-family: "Fira Sans Semibold", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    transition: background-color .3s ease-out;
+}
+
+window#waybar {
+    background: rgba(0, 0, 0, 0);
+    color: #c0caf5;
+    font-family: SpaceMono Nerd Font, feather;
+    transition: background-color .5s;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background: transparent; /* todo el bloque transparente */
+    margin: 5px 5px;
+    padding: 0 5px;
+    border-radius: 15px;
+}
+
+.modules-center {
+    padding: 0 10px;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* ======================
+   ESTILOS POR MÓDULO
+   ====================== */
+
+#clock {
+    background: rgba(0, 120, 255, 0.4);   /* Azul translúcido */
+    color: #ffffff;
+    border-radius: 10px;
+    margin: 0 5px;
+    padding: 0 10px;
+}
+
+#cpu {
+    background: rgba(0, 255, 120, 0.3);   /* Verde translúcido */
+    color: #000000;
+    margin: 0 5px;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+#memory {
+    background: rgba(255, 0, 200, 0.3);   /* Fucsia translúcido */
+    color: #ffffff;
+    margin: 0 5px;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+#network {
+    background: rgba(255, 200, 0, 0.3);   /* Amarillo translúcido */
+    color: #000;
+    margin: 0 5px;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+#pulseaudio {
+    background: rgba(200, 200, 255, 0.3); /* Celeste translúcido */
+    color: #11111b;
+    margin: 0 5px;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+#battery {
+    background: rgba(50, 205, 50, 0.3);   /* Verde lima translúcido */
+    color: #ffffff;
+    margin: 0 5px;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
+#custom-spotify {
+    background: #000000;       /* Fondo negro sólido */
+    color: #1DB954;            /* Verde Spotify */
+    padding: 0 12px;
+    margin: 0 5px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* ======================
+   WORKSPACES
+   ====================== */
+
+#workspaces button {
+    background: transparent;
+    font-family: SpaceMono Nerd Font, feather;
+    font-weight: 900;
+    font-size: 13pt;
+    color: #c0caf5;
+    border: none;
+    border-radius: 15px;
+    margin: 0 3px;
+    padding: 0 8px;
+}
+
+#workspaces button.active {
+    background: #313134; 
+}
+
+#workspaces button:hover {
+    background: #11111b;
+    color: #cdd6f4;
+    box-shadow: none;
+}
+
+/* ======================
+   ICONO ARCH
+   ====================== */
+
+#custom-arch {
+    margin-left: 5px;
+    padding: 0 10px;
+    font-size: 25px;
+    transition: color .5s;
+}
+#custom-arch:hover {
+    color: #1793d1;
+}
+
+/* separadores sutiles entre módulos de la derecha */
+.modules-right > *:not(:last-child) {
+  border-right: 1px solid rgba(255,255,255,0.12);
+  margin-right: 8px;
+  padding-right: 10px;
+}
+
+/* Spotify usando el módulo mpris (todo en verde sobre fondo negro) */
+#mpris {
+  background: #000;
+  color: #1DB954;         /* verde Spotify */
+  border-radius: 12px;
+  padding: 0 12px;
+  font-weight: 600;
+}
+
+/* retoques de color (opcional) para que combinen mejor */
+#pulseaudio { color: #0a0a0a; }
+#network    { color: #0a0a0a; }
+#battery    { color: #ffffff; }
+#backlight  { color: #000000; }
+#temperature{ color: #000000; }
+
+#pulseaudio:hover,
+#network:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#battery:hover,
+#backlight:hover,
+#mpris:hover,
+#clock:hover {
+  opacity: 0.85; /* se atenúa un poco al pasar el mouse */
+}

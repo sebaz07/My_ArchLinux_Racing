@@ -1,0 +1,95 @@
+
+version: "3.8"
+
+networks:
+  elastic:
+    driver: bridge
+
+volumes:
+  esdata:
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    container_name: es01
+    restart: unless-stopped
+    environment:
+      - node.name=es01
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      # Seguridad desactivada para desarrollo local
+      - bootstrap.memory_lock=true
+      # Ajusta memoria de ES según tu máquina (opcional)
+      # - ES_JAVA_OPTS=-Xms2g -Xmx2g
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9200 | grep -q 'cluster_name'"]
+      interval: 10s
+      timeout: 5s
+      retries: 50
+    networks: [elastic]
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    container_name: kibana
+    restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      # Conexión interna a ES
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      # Seguridad desactivada, no se requieren credenciales
+      # Opcional: desactiva el aviso de Telemetry
+      - TELEMETRY_ENABLED=false
+      # Para pruebas locales sin TLS
+      - SERVER_SSL_ENABLED=false
+    ports:
+      - "5601:5601"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:5601/api/status | grep -q 'available'"]
+      interval: 10s
+      timeout: 5s
+      retries: 50
+    networks: [elastic]
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:${STACK_VERSION}
+    container_name: apm-server
+    restart: unless-stopped
+    depends_on:
+      kibana:
+        condition: service_healthy
+    # Exponemos la API de APM en 8200
+    ports:
+      - "8200:8200"
+    command: >
+      apm-server -e
+      -E apm-server.host=0.0.0.0:8200
+      -E apm-server.auth.secret_token=${APM_SECRET_TOKEN}
+      -E output.elasticsearch.hosts=["http://elasticsearch:9200"]
+      -E setup.kibana.host=http://kibana:5601
+      -E output.elasticsearch.protocol=http
+      -E apm-server.data_streams.enabled=false
+      -E apm-server.ilm.enabled=false
+      -E setup.template.enabled=true
+      -E setup.template.settings.index.number_of_shards=1
+      -E setup.template.settings.index.number_of_replicas=0
+      -E apm-server.register.ingest.pipeline.enabled=false
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8200/ | grep -qi apm"]
+      interval: 10s
+      timeout: 5s
+      retries: 50
+    networks: [elastic]
+

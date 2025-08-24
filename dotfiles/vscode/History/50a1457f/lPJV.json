@@ -1,0 +1,100 @@
+/* ====== GRUPOS ====== */
+.modules-left,
+.modules-right {        /* dejamos los grupos sin fondo, solo los módulos coloridos */
+  background: transparent;
+  margin: 5px 5px;
+  padding: 0 5px;
+  border-radius: 15px;
+}
+
+.modules-center {
+  background: transparent;
+  box-shadow: none;
+  padding: 0 10px;
+}
+
+/* Separadores entre módulos de la derecha */
+.modules-right > *:not(:last-child) {
+  border-right: 1px solid rgba(255,255,255,0.12);
+  margin-right: 8px;
+  padding-right: 10px;
+}
+
+/* ====== MÓDULOS CON COLOR ====== */
+
+/* Spotify (MPRIS) → fondo negro + verde Spotify */
+#mpris {
+  background: #000000;
+  color: #1DB954;              /* verde oficial Spotify */
+  border-radius: 10px;
+  padding: 0 12px;
+  font-weight: 600;
+}
+
+/* Sonido */
+#pulseaudio {
+  background: rgba(0, 120, 255, 0.25);  /* azul translúcido */
+  color: #e6f0ff;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+/* Red */
+#network {
+  background: rgba(0, 210, 170, 0.25);  /* cian/verde agua */
+  color: #dffaf4;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+/* Batería */
+#battery {
+  background: rgba(60, 220, 90, 0.25);  /* verde lima translúcido */
+  color: #eaffea;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+/* Brillo */
+#backlight {
+  background: rgba(255, 200, 0, 0.22);  /* amarillo suave */
+  color: #fff7d6;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+/* Temperatura */
+#temperature {
+  background: rgba(255, 120, 0, 0.22);  /* naranja suave */
+  color: #ffe9d6;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+/* Idioma */
+#language {
+  background: rgba(170, 120, 255, 0.22); /* violeta suave */
+  color: #f1e8ff;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+/* Reloj (si lo tienes a la derecha) */
+#clock {
+  background: rgba(0, 120, 255, 0.30);
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+/* Hover sutil común */
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#backlight:hover,
+#temperature:hover,
+#language:hover,
+#mpris:hover,
+#clock:hover {
+  filter: brightness(1.08);
+}
