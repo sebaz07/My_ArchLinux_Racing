@@ -1,8 +1,0 @@
-# Instalando entorno grafico
-sudo pacman -S gnome
-sudo pacman -S gnome gnome-extra
-
-Habilitar el gestor de sesión
-sudo systemctl disable lightdm
-sudo systemctl enable gdm
-sudo systemctl start gdm
